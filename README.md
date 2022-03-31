@@ -45,3 +45,29 @@ _, err = w.Write(
 	),
 )
 ```
+
+## Example3: write WAVE file to io.WriteCloser
+
+```go
+w, err := wavebin.CreateSampleWriter(f, &wavebin.ExtendedFormatChunk{
+		MetaFormat: wavebin.NewPCMMetaFormat(wavebin.MonoralChannels, 44100, 8),
+})
+if err != nil {
+		panic(err)
+}
+
+// write samples
+max := 2000 * int(math.Ceil(44100/440))
+for i := 0; i < max; i++ {
+		b := byte(math.Floor((float64(i) / float64(max)) * 192.0 * (1.0 + math.Sin(2.0*math.Pi*float64(i)/(44100/440))) / 2.0))
+		_, err = w.Write([]byte{b})
+		if err != nil {
+				panic(err)
+		}
+}
+
+err = w.Close()
+if err != nil {
+		panic(err)
+}
+```
