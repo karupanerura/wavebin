@@ -6,4 +6,6 @@ github.com/karupanerura/riffbin v0.0.1 h1:J+LIasMHDGASt4Kw87MMQYlV0op4OVni401LNo
 github.com/karupanerura/riffbin v0.0.1/go.mod h1:tJxuWTcrOMY2rC2TyiT0xm5t5r7VfgMtHq0UCus4q9Y=
 github.com/karupanerura/riffbin v0.0.2 h1:RSOxmaY91xOTXAAkH8yzVqPGe7sM5k4lRbOjf0h8u1Q=
 github.com/karupanerura/riffbin v0.0.2/go.mod h1:tJxuWTcrOMY2rC2TyiT0xm5t5r7VfgMtHq0UCus4q9Y=
+github.com/karupanerura/riffbin v0.0.4 h1:Fp3t6K1SkJQ7tDzBsFaHhEfyXCXk/jTh+TnMh3cHbwg=
+github.com/karupanerura/riffbin v0.0.4/go.mod h1:tJxuWTcrOMY2rC2TyiT0xm5t5r7VfgMtHq0UCus4q9Y=
 golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
