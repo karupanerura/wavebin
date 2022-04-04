@@ -71,3 +71,34 @@ if err != nil {
 	panic(err)
 }
 ```
+
+## Example4: write WAVE file to io.WriteCloser with PCMWriter
+
+```go
+w, err := wavebin.CreateSampleWriter(f, &wavebin.ExtendedFormatChunk{
+		MetaFormat: wavebin.NewPCMMetaFormat(wavebin.StereoChannels, 44100, 16),
+})
+if err != nil {
+	panic(err)
+}
+
+pcmWriter := &wavebin.PCMWriter{W: bufio.NewWriter(w)} // bufio for performance
+
+// write samples
+max := 2000 * int(math.Ceil(44100/440))
+for i := 0; i < max; i++ {
+    sample := wavebin.PCM16BitStereoSample{
+		L: int16(math.Floor((float64(i) / float64(max)) * 32767 * math.Sin(2.0*math.Pi*float64(i)/(44100/440)))),
+		R: int16(math.Floor((float64(i) / float64(max)) * 32767 * math.Sin(2.0*math.Pi*float64(i)/(44100/110)))),
+	}
+	_, err = pcmWriter.WriteSamples(sample)
+	if err != nil {
+		panic(err)
+	}
+}
+
+err = w.Close()
+if err != nil {
+	panic(err)
+}
+```
