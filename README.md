@@ -82,7 +82,8 @@ if err != nil {
 	panic(err)
 }
 
-pcmWriter := &wavebin.PCMWriter{W: bufio.NewWriter(w)} // bufio for performance
+bw := bufio.NewWriter(w) // bufio for performance
+pcmWriter := &wavebin.PCMWriter{W: bw}
 
 // write samples
 max := 2000 * int(math.Ceil(44100/440))
@@ -95,6 +96,10 @@ for i := 0; i < max; i++ {
 	if err != nil {
 		panic(err)
 	}
+}
+err = bw.Flush()
+if err != nil {
+	panic(err)
 }
 
 err = w.Close()
