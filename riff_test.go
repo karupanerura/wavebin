@@ -1,13 +1,12 @@
 package wavebin_test
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/base64"
 	"io"
 	"math"
 	"os"
-	"os/exec"
-	"runtime"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -281,10 +280,11 @@ func ExampleCreateSampleWriter() {
 
 	// write samples
 	{
+		ww := bufio.NewWriter(w)
 		max := 2000 * int(math.Ceil(44100/440))
 		for i := 0; i < max; i++ {
 			b := byte(math.Floor((float64(i) / float64(max)) * 192.0 * (1.0 + math.Sin(2.0*math.Pi*float64(i)/(44100/440))) / 2.0))
-			_, err = w.Write([]byte{b})
+			_, err = ww.Write([]byte{b})
 			if err != nil {
 				panic(err)
 			}
@@ -293,14 +293,6 @@ func ExampleCreateSampleWriter() {
 	err = w.Close()
 	if err != nil {
 		panic(err)
-	}
-
-	// preview on macOS
-	if os.Getenv("DEBUG_TEST_PLAY") != "" && runtime.GOOS == "darwin" {
-		err = exec.Command("afplay", f.Name()).Run()
-		if err != nil {
-			panic(err)
-		}
 	}
 
 	// Output:
