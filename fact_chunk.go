@@ -15,7 +15,7 @@ type FactChunk struct {
 func (f *FactChunk) Chunk() riffbin.Chunk {
 	b := make([]byte, 4)
 	binary.LittleEndian.PutUint32(b, uint32(f.SampleLength))
-	return &riffbin.CompletedSubChunk{
+	return &riffbin.OnMemorySubChunk{
 		ID:      factBytes,
 		Payload: b,
 	}

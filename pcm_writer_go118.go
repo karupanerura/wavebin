@@ -1,3 +1,6 @@
+//go:build go1.18
+// +build go1.18
+
 package wavebin
 
 import (
@@ -5,11 +8,11 @@ import (
 	"io"
 )
 
-type PCMWriter struct {
+type PCMWriter[T PCMSample] struct {
 	W io.Writer
 }
 
-func (w *PCMWriter) WriteSamples(samples ...PCMSample) (n int64, err error) {
+func (w *PCMWriter[T]) WriteSamples(samples ...T) (n int64, err error) {
 	var buf [4]byte
 	var bufLen int
 	for _, sample := range samples {

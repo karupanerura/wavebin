@@ -103,7 +103,7 @@ type InfoChunk struct {
 func (f *InfoChunk) Chunk() riffbin.Chunk {
 	payload := make([]riffbin.Chunk, 0, len(f.Data))
 	for key, value := range f.Data {
-		payload = append(payload, &riffbin.CompletedSubChunk{
+		payload = append(payload, &riffbin.OnMemorySubChunk{
 			ID:      key,
 			Payload: []byte(value),
 		})

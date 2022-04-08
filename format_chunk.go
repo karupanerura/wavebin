@@ -28,7 +28,7 @@ func (f *BasicFormatChunk) Bytes() (b []byte) {
 }
 
 func (f *BasicFormatChunk) Chunk() riffbin.Chunk {
-	return &riffbin.CompletedSubChunk{
+	return &riffbin.OnMemorySubChunk{
 		ID:      fmtBytes,
 		Payload: f.Bytes(),
 	}
@@ -61,7 +61,7 @@ func (f *ExtendedFormatChunk) Bytes() (b []byte) {
 }
 
 func (f *ExtendedFormatChunk) Chunk() riffbin.Chunk {
-	return &riffbin.CompletedSubChunk{
+	return &riffbin.OnMemorySubChunk{
 		ID:      fmtBytes,
 		Payload: f.Bytes(),
 	}

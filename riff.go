@@ -19,7 +19,7 @@ type ChunkProvider interface {
 }
 
 func CreateCompletedRIFF(format FormatChunk, samples []byte, extras ...ChunkProvider) *riffbin.RIFFChunk {
-	return createRIFF(format, &riffbin.CompletedSubChunk{
+	return createRIFF(format, &riffbin.OnMemorySubChunk{
 		ID:      dataBytes,
 		Payload: samples,
 	}, extras...)
