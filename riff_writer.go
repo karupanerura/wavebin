@@ -8,10 +8,12 @@ import (
 
 var (
 	waveBytes = [4]byte{'W', 'A', 'V', 'E'}
+	listBytes = [4]byte{'L', 'I', 'S', 'T'}
 	fmtBytes  = [4]byte{'f', 'm', 't', ' '}
 	factBytes = [4]byte{'f', 'a', 'c', 't'}
 	infoBytes = [4]byte{'I', 'N', 'F', 'O'}
 	dataBytes = [4]byte{'d', 'a', 't', 'a'}
+	junkBytes = [4]byte{'j', 'u', 'n', 'k'}
 )
 
 type ChunkProvider interface {

@@ -34,42 +34,80 @@ type MetaFormat interface {
 }
 
 type rawMetaFormat struct {
+	compressionCode          uint16
+	channels                 uint16
+	samplesPerSecond         uint32
+	significantBitsPerSample uint16
+	averageBytesPerSecond    uint32
+	blockAlign               uint16
+	extraField               []byte
+}
+
+func (f *rawMetaFormat) CompressionCode() uint16 {
+	return f.compressionCode
+}
+
+func (f *rawMetaFormat) Channels() uint16 {
+	return f.channels
+}
+
+func (f *rawMetaFormat) SamplesPerSecond() uint32 {
+	return f.samplesPerSecond
+}
+
+func (f *rawMetaFormat) SignificantBitsPerSample() uint16 {
+	return f.significantBitsPerSample
+}
+
+func (f *rawMetaFormat) AverageBytesPerSecond() uint32 {
+	return f.averageBytesPerSecond
+}
+
+func (f *rawMetaFormat) BlockAlign() uint16 {
+	return f.blockAlign
+}
+
+func (f rawMetaFormat) ExtraField() []byte {
+	return f.extraField
+}
+
+type commonMetaFormat struct {
 	channels                 Channels
 	samplesPerSecond         SamplesPerSecond
 	significantBitsPerSample SignificantBitsPerSample
 }
 
-func (f *rawMetaFormat) Channels() uint16 {
+func (f *commonMetaFormat) Channels() uint16 {
 	return uint16(f.channels)
 }
 
-func (f *rawMetaFormat) SamplesPerSecond() uint32 {
+func (f *commonMetaFormat) SamplesPerSecond() uint32 {
 	return uint32(f.samplesPerSecond)
 }
 
-func (f *rawMetaFormat) SignificantBitsPerSample() uint16 {
+func (f *commonMetaFormat) SignificantBitsPerSample() uint16 {
 	return uint16(f.significantBitsPerSample)
 }
 
-func (f *rawMetaFormat) AverageBytesPerSecond() uint32 {
+func (f *commonMetaFormat) AverageBytesPerSecond() uint32 {
 	return f.SamplesPerSecond() * uint32(f.BlockAlign())
 }
 
-func (f *rawMetaFormat) BlockAlign() uint16 {
+func (f *commonMetaFormat) BlockAlign() uint16 {
 	return f.Channels() * f.SignificantBitsPerSample() / 8
 }
 
-func (f *rawMetaFormat) ExtraField() []byte {
+func (f *commonMetaFormat) ExtraField() []byte {
 	return nil
 }
 
 type PCMMetaFormat struct {
-	rawMetaFormat
+	commonMetaFormat
 }
 
 func NewPCMMetaFormat(channels Channels, samplesPerSecond SamplesPerSecond, significantBitsPerSample SignificantBitsPerSample) *PCMMetaFormat {
 	return &PCMMetaFormat{
-		rawMetaFormat: rawMetaFormat{
+		commonMetaFormat: commonMetaFormat{
 			channels:                 channels,
 			samplesPerSecond:         samplesPerSecond,
 			significantBitsPerSample: significantBitsPerSample,
@@ -82,12 +120,12 @@ func (f *PCMMetaFormat) CompressionCode() uint16 {
 }
 
 type IEEEFloatMetaFormat struct {
-	rawMetaFormat
+	commonMetaFormat
 }
 
 func NewIEEEFloatMetaFormat(channels Channels, samplesPerSecond SamplesPerSecond, significantBitsPerSample SignificantBitsPerSample) *IEEEFloatMetaFormat {
 	return &IEEEFloatMetaFormat{
-		rawMetaFormat: rawMetaFormat{
+		commonMetaFormat: commonMetaFormat{
 			channels:                 channels,
 			samplesPerSecond:         samplesPerSecond,
 			significantBitsPerSample: significantBitsPerSample,
@@ -125,7 +163,7 @@ const (
 )
 
 type ExtensibleMetaFormat struct {
-	rawMetaFormat
+	commonMetaFormat
 	validBitsPerSample ValidBitsPerSample
 	channelMask        ChannelMask
 	subFormat          [16]byte
@@ -133,7 +171,7 @@ type ExtensibleMetaFormat struct {
 
 func NewExtensibleMetaFormat(channels Channels, samplesPerSecond SamplesPerSecond, significantBitsPerSample SignificantBitsPerSample, validBitsPerSample ValidBitsPerSample, channelMask ChannelMask, subFormat [16]byte) *ExtensibleMetaFormat {
 	return &ExtensibleMetaFormat{
-		rawMetaFormat: rawMetaFormat{
+		commonMetaFormat: commonMetaFormat{
 			channels:                 channels,
 			samplesPerSecond:         samplesPerSecond,
 			significantBitsPerSample: significantBitsPerSample,

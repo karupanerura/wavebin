@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 package wavebin_test
 
 import (
@@ -126,7 +123,7 @@ func TestPCMWriter(t *testing.T) {
 }
 
 func ExamplePCMWriter() {
-	f, err := os.CreateTemp("", "riffbin")
+	f, err := os.CreateTemp("", "wavebin")
 	if err != nil {
 		panic(err)
 	}
@@ -168,11 +165,6 @@ func ExamplePCMWriter() {
 	// preview on macOS
 	if os.Getenv("DEBUG_TEST_PLAY") != "" && runtime.GOOS == "darwin" {
 		err = exec.Command("afplay", f.Name()).Run()
-		if err != nil {
-			panic(err)
-		}
-
-		err = exec.Command("cp", f.Name(), "/Users/karupanerura/a.wav").Run()
 		if err != nil {
 			panic(err)
 		}

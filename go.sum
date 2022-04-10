@@ -10,4 +10,8 @@ github.com/karupanerura/riffbin v0.0.4 h1:Fp3t6K1SkJQ7tDzBsFaHhEfyXCXk/jTh+TnMh3
 github.com/karupanerura/riffbin v0.0.4/go.mod h1:tJxuWTcrOMY2rC2TyiT0xm5t5r7VfgMtHq0UCus4q9Y=
 github.com/karupanerura/riffbin v0.0.5 h1:Sz+pKnkRfDcrR4MuXBBRQCSxIUnZ+UHnI9xY155f2QY=
 github.com/karupanerura/riffbin v0.0.5/go.mod h1:tJxuWTcrOMY2rC2TyiT0xm5t5r7VfgMtHq0UCus4q9Y=
+github.com/karupanerura/riffbin v0.0.6 h1:wH5FXgMqg5Nx7AKeV+ehx2j8ws+UjAYAY/cjVYUd9qo=
+github.com/karupanerura/riffbin v0.0.6/go.mod h1:tJxuWTcrOMY2rC2TyiT0xm5t5r7VfgMtHq0UCus4q9Y=
+golang.org/x/sync v0.0.0-20210220032951-036812b2e83c h1:5KslGYwFpkhGh+Q16bwMP3cOontH8FOep7tGV86Y7SQ=
+golang.org/x/sync v0.0.0-20210220032951-036812b2e83c/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
