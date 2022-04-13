@@ -21,7 +21,7 @@ var (
 	ErrLackOfRequiredChunks = errors.New("lack of required chunks")
 )
 
-func ParseWaveRIFF(riffChunk *riffbin.RIFFChunk, ignoreUnknownChunk bool) (fmtChunk FormatChunk, infoChunk *InfoChunk, factChunk *FactChunk, sampleReader io.Reader, err error) {
+func ParseWaveRIFF(riffChunk *riffbin.RIFFChunk, ignoreUnknownChunk bool) (fmtChunk FormatChunk, infoChunk *InfoChunk, factChunk *FactChunk, sampleReader riffbin.SubChunk, err error) {
 	if riffChunk.FormType != waveBytes {
 		err = fmt.Errorf("%w: %s", ErrUnexpectedFormType, string(riffChunk.FormType[:]))
 		return
@@ -111,7 +111,7 @@ func parseFormatChunk(chunk riffbin.Chunk) (FormatChunk, error) {
 	}
 }
 
-func parseDataChunk(chunk riffbin.Chunk) (io.Reader, error) {
+func parseDataChunk(chunk riffbin.Chunk) (riffbin.SubChunk, error) {
 	subChunk, ok := chunk.(riffbin.SubChunk)
 	if !ok {
 		return nil, fmt.Errorf("RIFF[WAVE].data: %w", ErrUnexpectedChunkType)
